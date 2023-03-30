@@ -4,9 +4,9 @@ import  WorkoutController  from '../../controllers/workout.controller';
 const router = Router();
 
 router
-    .get('/users', WorkoutController.ListWorkouts)
+    .get('/workouts', WorkoutController.AllWorkouts)
     // .get('/user/:id', UserController.UserbyId)
-    // .post('/users', UserController.CreateUser)
+    .post('/workouts', WorkoutController.CreateWorkout)
     // .put('/user/:id', UserController.UpdateUser)
     // .delete('/user/:id', UserController.DeleteUser)
 

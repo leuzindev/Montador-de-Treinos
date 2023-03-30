@@ -1,8 +1,11 @@
-export interface Exercice {
+export interface Exercise {
   id: string;
   name: string;
   description: string;
-  category: string;
-  video?: string;
-  image?: string;
+  category: {
+    id: number;
+    name: string;
+  } | null;
+  video?: string | null;
+  image?: string | null;
 }

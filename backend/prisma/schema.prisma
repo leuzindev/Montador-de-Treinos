@@ -11,32 +11,60 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  username  String
-  email     String
-  password  String
-  isTeacher Boolean? @default(false)
-  avatar    String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String        @id @default(cuid())
+  username    String
+  email       String
+  password    String
+  isTeacher   Boolean?      @default(false)
+  avatar      String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  WorkoutPlan WorkoutPlan[]
 }
 
 model Exercise {
-  id          String    @id @default(cuid())
+  id          String        @id @default(cuid())
   name        String
   description String
-  category    Category? @relation(fields: [categoryId], references: [id])
+  category    Category?     @relation(fields: [categoryId], references: [id])
   video       String?
   image       String?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
   categoryId  Int?
-  workoutId   Int?
+  Workout     Workout?      @relation(fields: [workoutId], references: [id])
+  workoutId   String?
+  WorkoutPlan WorkoutPlan[]
 }
 
 model Category {
   id        Int        @id @default(autoincrement())
   name      String
   exercises Exercise[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }
 
+model Workout {
+  id          String        @id @default(cuid())
+  exercises   Exercise[]
+  name        String
+
+  WorkoutPlan WorkoutPlan[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model WorkoutPlan {
+  id         String   @id @default(cuid())
+  exercise   Exercise @relation(fields: [exerciseId], references: [id])
+  exerciseId String
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  workout    Workout  @relation(fields: [workoutId], references: [id])
+  workoutId  String
+  sets       Int
+  reps       Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
