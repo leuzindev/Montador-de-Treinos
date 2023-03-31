@@ -14,7 +14,7 @@ class WorkoutController {
 
   static async CreateWorkout(request: Request, response: Response) {
     try {
-    
+        
     } catch (error) {
      
     }
